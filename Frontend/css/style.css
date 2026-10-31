@@ -239,3 +239,42 @@ th {
         overflow-x: auto;
     }
 }
+.primary-btn {
+    background: #3979df;
+    color: white;
+    border: none;
+    padding: 11px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.primary-btn:hover {
+    background: #285fbd;
+}
+
+.subscription-form {
+    background: #f8faff;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 10px;
+}
+
+.subscription-form label {
+    display: block;
+    margin: 12px 0 6px;
+}
+
+.subscription-form input,
+.subscription-form select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #dce2eb;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+.subscription-form button {
+    margin-top: 15px;
+    cursor: pointer;
+}
