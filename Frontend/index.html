@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brightloop | Subscription Management</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <h2 class="brand">Brightloop<span>.</span></h2>
+
+        <p class="menu-label">MAIN MENU</p>
+        <nav>
+            <a class="active" href="#">▦ Dashboard</a>
+            <a href="#">♙ Customers</a>
+            <a href="#">▣ Subscriptions</a>
+            <a href="#">▤ Plans</a>
+            <a href="#">▧ Invoices</a>
+            <a href="#">↗ Payments</a>
+            <a href="#">▥ Reports</a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <p>Subscription Management</p>
+            <small>Admin Workspace</small>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <div>
+                <h1>Dashboard</h1>
+                <p>Welcome back! Here's your business overview.</p>
+            </div>
+            <div class="profile">Admin</div>
+        </header>
+
+        <section class="stats-grid">
+            <article class="stat-card">
+                <p>Active Subscriptions</p>
+                <h2 id="activeSubscriptions">248</h2>
+                <small>Currently active</small>
+            </article>
+
+            <article class="stat-card">
+                <p>Monthly Revenue</p>
+                <h2 id="monthlyRevenue">₹4,80,000</h2>
+                <small>Illustrative sample data</small>
+            </article>
+
+            <article class="stat-card">
+                <p>Payments Received</p>
+                <h2 id="paymentsReceived">₹3,90,000</h2>
+                <small>This month</small>
+            </article>
+
+            <article class="stat-card">
+                <p>Outstanding Amount</p>
+                <h2 id="outstandingAmount">₹90,000</h2>
+                <small>Awaiting payment</small>
+            </article>
+        </section>
+
+        <section class="content-grid">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3>Recent Subscriptions</h3>
+                    <a href="#">View all</a>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Customer</th>
+                                <th>Plan</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="subscriptionTable"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h3>Revenue Overview</h3>
+                <p class="muted">Illustrative monthly figures</p>
+                <div class="revenue-bars">
+                    <div><span style="height:45%"></span><small>Jan</small></div>
+                    <div><span style="height:65%"></span><small>Feb</small></div>
+                    <div><span style="height:55%"></span><small>Mar</small></div>
+                    <div><span style="height:80%"></span><small>Apr</small></div>
+                    <div><span style="height:70%"></span><small>May</small></div>
+                    <div><span style="height:95%"></span><small>Jun</small></div>
+                </div>
+            </div>
+        </section>
+
+        <p class="footer">Brightloop Subscription Management System</p>
+    </main>
+
+   <script src="js/api.js"></script>
+   <script src="js/app.js"></script>
+</body>
+</html>
