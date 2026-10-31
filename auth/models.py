@@ -53,3 +53,12 @@ class User(db.Model):
 
     def __repr__(self):
         return f"<User {self.email}>"
+class RevokedToken(db.Model):
+    __tablename__ = "revoked_tokens"
+
+    jti = db.Column(db.String(36), primary_key=True)
+    revoked_at = db.Column(
+        db.DateTime,
+        nullable=False,
+        default=datetime.utcnow
+    )
