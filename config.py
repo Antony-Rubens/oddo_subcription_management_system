@@ -1,12 +1,28 @@
+
 import os
-from urllib.parse import quote_plus
+
+from dotenv import load_dotenv
+from sqlalchemy import URL
+
+load_dotenv(override=True)
+
 
 class Config:
-    SQLALCHEMY_DATABASE_URI = (
-        f"mysql+pymysql://{os.getenv('DB_USER')}:{quote_plus(os.getenv('DB_PASSWORD', ''))}"
-        f"@{os.getenv('DB_HOST', 'localhost')}:{os.getenv('DB_PORT', '3306')}"
-        f"/{os.getenv('DB_NAME')}?charset=utf8mb4"
+
+    # Flask security configuration
+    SECRET_KEY = os.getenv(
+        "SECRET_KEY",
+        "dev-secret-key"
+    )
+
+    # MySQL database configuration
+    SQLALCHEMY_DATABASE_URI = URL.create(
+        drivername="mysql+pymysql",
+        username=os.getenv("DB_USER"),
+        password=os.getenv("DB_PASSWORD"),
+        host=os.getenv("DB_HOST", "localhost"),
+        port=int(os.getenv("DB_PORT", "3306")),
+        database=os.getenv("DB_NAME")
     )
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret-change-later")
