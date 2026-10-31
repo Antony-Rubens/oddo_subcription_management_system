@@ -1,13 +1,21 @@
+
 import os
+
 from dotenv import load_dotenv
 from sqlalchemy import URL
 
 load_dotenv(override=True)
 
+
 class Config:
 
-    SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret-key")
+    # Flask security configuration
+    SECRET_KEY = os.getenv(
+        "SECRET_KEY",
+        "dev-secret-key"
+    )
 
+    # MySQL database configuration
     SQLALCHEMY_DATABASE_URI = URL.create(
         drivername="mysql+pymysql",
         username=os.getenv("DB_USER"),

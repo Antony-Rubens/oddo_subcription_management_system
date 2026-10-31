@@ -1,9 +1,18 @@
 
+import os
+
+from dotenv import load_dotenv
+load_dotenv()
+
 from flask import Flask, jsonify
 from sqlalchemy import text
 
 from config import Config
 from extensions import db
+
+# Authentication imports
+from auth.models import User
+from auth import auth_bp
 
 
 def create_app():
@@ -12,8 +21,17 @@ def create_app():
     # Load configuration
     app.config.from_object(Config)
 
+    # Configure JWT
+    app.config["JWT_SECRET_KEY"] = os.getenv(
+        "JWT_SECRET_KEY",
+        app.config["SECRET_KEY"]
+    )
+
     # Initialize database
     db.init_app(app)
+
+    # Register authentication blueprint
+    app.register_blueprint(auth_bp)
 
     # Import models so SQLAlchemy registers their tables
     from billing import models as billing_models
@@ -25,13 +43,13 @@ def create_app():
     from billing import init_billing
     init_billing(app)
 
-    # Register subscription plan blueprint
-    from subscription_plan import plan_bp
-    app.register_blueprint(plan_bp)
-
     # Register product blueprint
     from subscription_product import product_bp
     app.register_blueprint(product_bp)
+
+    # Register subscription plan blueprint
+    from subscription_plan import plan_bp
+    app.register_blueprint(plan_bp)
 
     # Register subscription blueprint
     from subscription import subscription_bp
