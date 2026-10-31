@@ -2,6 +2,7 @@ from flask import request, jsonify
 from . import auth_bp
 from .services import register_user
 from auth.services import login_user
+from .services import logout_user
 
 from flask import g
 from auth.decorators import token_required, role_required
@@ -131,4 +132,29 @@ def login():
         return jsonify({
             "success": False,
             "message": "Login failed"
+        }), 500
+
+
+
+
+
+@auth_bp.route("/logout", methods=["POST"])
+@token_required
+def logout():
+
+    token = request.headers.get("Authorization").split(" ", 1)[1]
+
+    try:
+        logout_user(token)
+
+        return jsonify({
+            "success": True,
+            "message": "Logout successful"
+        }), 200
+
+    except Exception:
+        db.session.rollback()
+        return jsonify({
+            "success": False,
+            "message": "Logout failed"
         }), 500

@@ -7,7 +7,9 @@ from werkzeug.security import generate_password_hash
 from sqlalchemy.exc import IntegrityError
 
 from extensions import db
-from auth.models import User
+from auth.models import RevokedToken, User
+
+from uuid import uuid4
 
 
 def register_user(full_name, email, password):
@@ -77,10 +79,31 @@ def login_user(email, password):
     secret = current_app.config.get("JWT_SECRET_KEY") or current_app.config["SECRET_KEY"]
 
     token = jwt.encode({
-        "user_id": user.id,
-        "role": user.role,
-        "exp": datetime.now(timezone.utc) + timedelta(hours=8)
-    }, secret, algorithm="HS256")
+    "user_id": user.id,
+    "role": user.role,
+    "jti": str(uuid4()),
+    "exp": datetime.now(timezone.utc) + timedelta(hours=8)
+}, secret, algorithm="HS256")
 
     return user, token
 
+def logout_user(token):
+
+    secret = current_app.config.get("JWT_SECRET_KEY") or current_app.config["SECRET_KEY"]
+
+    data = jwt.decode(token, secret, algorithms=["HS256"])
+
+    jti = data.get("jti")
+
+    if not jti:
+        raise ValueError("Invalid token")
+
+    existing = db.session.get(RevokedToken, jti)
+
+    if existing:
+        return
+
+    revoked_token = RevokedToken(jti=jti)
+
+    db.session.add(revoked_token)
+    db.session.commit()
