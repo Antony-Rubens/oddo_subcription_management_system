@@ -18,14 +18,24 @@ def create_app():
     # Import models so SQLAlchemy registers their tables
     from billing import models as billing_models
     from subscription_product import models as product_models
+    from subscription_plan import models as plan_models
+    from subscription import models as subscription_models
 
     # Register billing blueprint
     from billing import init_billing
     init_billing(app)
 
+    # Register subscription plan blueprint
+    from subscription_plan import plan_bp
+    app.register_blueprint(plan_bp)
+
     # Register product blueprint
     from subscription_product import product_bp
     app.register_blueprint(product_bp)
+
+    # Register subscription blueprint
+    from subscription import subscription_bp
+    app.register_blueprint(subscription_bp)
 
     # Create database tables
     with app.app_context():
